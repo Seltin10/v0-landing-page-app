@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { sql } from "@/lib/db"
 import { AdminHeader } from "@/components/admin-header"
 import { NewPartnerForm } from "@/components/new-partner-form"
+import { Suspense } from "react"
 
 async function checkAdmin(userId: string) {
   const result = await sql`
@@ -27,7 +28,9 @@ export default async function NewPartnerPage() {
           <p className="text-muted-foreground">Cadastre um novo estabelecimento parceiro</p>
         </div>
 
-        <NewPartnerForm />
+        <Suspense fallback={<div className="text-center py-8">Carregando formulário...</div>}>
+          <NewPartnerForm />
+        </Suspense>
       </main>
     </div>
   )

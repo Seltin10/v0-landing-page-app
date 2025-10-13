@@ -5,6 +5,7 @@ import { DashboardHeader } from "@/components/dashboard-header"
 import { BottomNav } from "@/components/bottom-nav"
 import { GoalCard } from "@/components/goal-card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Suspense } from "react"
 
 export default async function GoalsPage() {
   const session = await getSession()
@@ -122,7 +123,9 @@ export default async function GoalsPage() {
           </TabsContent>
         </Tabs>
       </main>
-      <BottomNav />
+      <Suspense fallback={<div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t" />}>
+        <BottomNav />
+      </Suspense>
     </div>
   )
 }

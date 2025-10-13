@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { ConsentForm } from "@/components/consent-form"
+import { Suspense } from "react"
 
 export default async function ConsentPage() {
   const session = await getSession()
@@ -15,7 +16,9 @@ export default async function ConsentPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0b2396] to-[#d9a520] p-4">
-      <ConsentForm userId={session.id} />
+      <Suspense fallback={<div className="w-full max-w-md h-96 animate-pulse bg-white/10 rounded-lg" />}>
+        <ConsentForm userId={session.id} />
+      </Suspense>
     </div>
   )
 }

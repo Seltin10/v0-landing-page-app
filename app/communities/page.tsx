@@ -4,6 +4,7 @@ import { DashboardHeader } from "@/components/dashboard-header"
 import { BottomNav } from "@/components/bottom-nav"
 import { Card, CardContent } from "@/components/ui/card"
 import { Users } from "lucide-react"
+import { Suspense } from "react"
 
 export default async function CommunitiesPage() {
   const session = await getSession()
@@ -32,7 +33,9 @@ export default async function CommunitiesPage() {
           </CardContent>
         </Card>
       </main>
-      <BottomNav />
+      <Suspense fallback={<div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t" />}>
+        <BottomNav />
+      </Suspense>
     </div>
   )
 }

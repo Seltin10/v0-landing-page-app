@@ -5,6 +5,7 @@ import { DashboardHeader } from "@/components/dashboard-header"
 import { BottomNav } from "@/components/bottom-nav"
 import { CouponCard } from "@/components/coupon-card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Suspense } from "react"
 
 export default async function RewardsPage() {
   const session = await getSession()
@@ -110,7 +111,9 @@ export default async function RewardsPage() {
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {availableCoupons.map((coupon: any) => (
-                  <CouponCard key={coupon.id} coupon={coupon} userId={session.id} type="available" />
+                  <Suspense key={coupon.id} fallback={<div className="h-48 animate-pulse bg-muted rounded-lg" />}>
+                    <CouponCard coupon={coupon} userId={session.id} type="available" />
+                  </Suspense>
                 ))}
               </div>
             )}
@@ -124,7 +127,12 @@ export default async function RewardsPage() {
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {activeCoupons.map((coupon: any) => (
-                  <CouponCard key={coupon.user_coupon_id} coupon={coupon} userId={session.id} type="earned" />
+                  <Suspense
+                    key={coupon.user_coupon_id}
+                    fallback={<div className="h-48 animate-pulse bg-muted rounded-lg" />}
+                  >
+                    <CouponCard coupon={coupon} userId={session.id} type="earned" />
+                  </Suspense>
                 ))}
               </div>
             )}
@@ -138,7 +146,12 @@ export default async function RewardsPage() {
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {usedCoupons.map((coupon: any) => (
-                  <CouponCard key={coupon.user_coupon_id} coupon={coupon} userId={session.id} type="used" />
+                  <Suspense
+                    key={coupon.user_coupon_id}
+                    fallback={<div className="h-48 animate-pulse bg-muted rounded-lg" />}
+                  >
+                    <CouponCard coupon={coupon} userId={session.id} type="used" />
+                  </Suspense>
                 ))}
               </div>
             )}

@@ -4,6 +4,7 @@ import { sql } from "@/lib/db"
 import { PartnerHeader } from "@/components/partner-header"
 import { ValidateCouponForm } from "@/components/validate-coupon-form"
 import { RecentValidations } from "@/components/recent-validations"
+import { Suspense } from "react"
 
 async function getPartnerSession() {
   const cookieStore = await cookies()
@@ -74,7 +75,9 @@ export default async function PartnerPage() {
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
-          <ValidateCouponForm partnerId={session.id} />
+          <Suspense fallback={<div className="h-64 bg-card border rounded-lg animate-pulse" />}>
+            <ValidateCouponForm partnerId={session.id} />
+          </Suspense>
           <RecentValidations validations={validations} />
         </div>
       </main>
