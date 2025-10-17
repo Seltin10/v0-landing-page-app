@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Activity, Bike, Waves } from "lucide-react"
+import { Activity, Bike, Waves, Trophy } from "lucide-react"
 
 interface ActivityData {
   id: number
@@ -16,18 +16,21 @@ export function RecentActivities({ activities }: { activities: ActivityData[] })
     running: Activity,
     cycling: Bike,
     swimming: Waves,
+    sports_plus: Trophy,
   }
 
   const activityLabels: Record<string, string> = {
     running: "Corrida",
     cycling: "Ciclismo",
     swimming: "Natação",
+    sports_plus: "SPORTS+",
   }
 
   const activityColors: Record<string, string> = {
     running: "bg-blue-100 text-blue-700",
     cycling: "bg-green-100 text-green-700",
     swimming: "bg-cyan-100 text-cyan-700",
+    sports_plus: "bg-purple-100 text-purple-700",
   }
 
   if (activities.length === 0) {

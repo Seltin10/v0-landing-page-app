@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Activity, Bike, Waves, Flame } from "lucide-react"
+import { Activity, Bike, Waves, Flame, Trophy } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { useState } from "react"
 
@@ -13,18 +13,20 @@ interface Stats {
 }
 
 export function StatsCards({ stats }: { stats: Stats }) {
-  const [selectedSport, setSelectedSport] = useState<"running" | "cycling" | "swimming">("running")
+  const [selectedSport, setSelectedSport] = useState<"running" | "cycling" | "swimming" | "sports_plus">("running")
 
   const sportLabels = {
     running: "CORRIDA",
     cycling: "BIKE",
     swimming: "NATAÇÃO",
+    sports_plus: "SPORTS+",
   }
 
   const sportIcons = {
     running: Activity,
     cycling: Bike,
     swimming: Waves,
+    sports_plus: Trophy,
   }
 
   const dailyProgress = Math.min((stats.total_running / stats.daily_goal) * 100, 100)
@@ -32,41 +34,45 @@ export function StatsCards({ stats }: { stats: Stats }) {
   const monthlyProgress = Math.min((stats.total_running / stats.monthly_goal) * 100, 100)
   const caloricProgress = 45 // Mock data for now
 
-  const goals = [
-    {
-      title: "META DIÁRIA",
-      target: "2 KM",
-      current: Number(stats.total_running).toFixed(1),
-      progress: dailyProgress,
-      icon: Activity,
-    },
-    {
-      title: "META SEMANAL",
-      target: "7 KM",
-      current: Number(stats.total_running).toFixed(1),
-      progress: weeklyProgress,
-      icon: Activity,
-    },
-    {
-      title: "META MENSAL",
-      target: "30 KM",
-      current: Number(stats.total_running).toFixed(1),
-      progress: monthlyProgress,
-      icon: Activity,
-    },
-    {
-      title: "META CALÓRICA",
-      target: "5.000 KCAL",
-      current: "2.250",
-      progress: caloricProgress,
-      icon: Flame,
-    },
-  ]
+  const goals =
+    selectedSport === "sports_plus"
+      ? [
+          {
+            title: "META CALÓRICA",
+            target: "5.000 KCAL",
+            current: "2.250",
+            progress: caloricProgress,
+            icon: Flame,
+          },
+        ]
+      : [
+          {
+            title: "META DIÁRIA",
+            target: "2 KM",
+            current: Number(stats.total_running).toFixed(1),
+            progress: dailyProgress,
+            icon: Activity,
+          },
+          {
+            title: "META SEMANAL",
+            target: "7 KM",
+            current: Number(stats.total_running).toFixed(1),
+            progress: weeklyProgress,
+            icon: Activity,
+          },
+          {
+            title: "META MENSAL",
+            target: "30 KM",
+            current: Number(stats.total_running).toFixed(1),
+            progress: monthlyProgress,
+            icon: Activity,
+          },
+        ]
 
   return (
     <div className="space-y-4">
       <div className="flex gap-2 justify-center">
-        {(["running", "cycling", "swimming"] as const).map((sport) => {
+        {(["running", "cycling", "swimming", "sports_plus"] as const).map((sport) => {
           const Icon = sportIcons[sport]
           return (
             <button
@@ -85,7 +91,7 @@ export function StatsCards({ stats }: { stats: Stats }) {
         })}
       </div>
 
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+      <div className={`grid gap-3 ${selectedSport === "sports_plus" ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-3"}`}>
         {goals.map((goal) => {
           const Icon = goal.icon
           return (

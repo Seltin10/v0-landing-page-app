@@ -5,6 +5,7 @@ import { DashboardHeader } from "@/components/dashboard-header"
 import { StatsCards } from "@/components/stats-cards"
 import { RecentActivities } from "@/components/recent-activities"
 import { BottomNav } from "@/components/bottom-nav"
+import { PartnerAdsBanner } from "@/components/partner-ads-banner"
 
 export default async function DashboardPage() {
   const session = await getSession()
@@ -29,6 +30,14 @@ export default async function DashboardPage() {
     LIMIT 10
   `
 
+  const partners = await sql`
+    SELECT id, name, logo_url, category
+    FROM public.partners
+    WHERE is_active = true
+    ORDER BY created_at DESC
+    LIMIT 10
+  `
+
   const goalStats = {
     total_running: Number(stats[0].total_running),
     daily_goal: 2,
@@ -40,6 +49,8 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-background pb-20">
       <DashboardHeader user={session} />
       <main className="container mx-auto px-3 py-4 sm:px-4 sm:py-6 space-y-6">
+        <PartnerAdsBanner partners={partners} />
+
         <div>
           <h1 className="text-xl sm:text-2xl font-bold mb-1">Minhas Metas</h1>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
