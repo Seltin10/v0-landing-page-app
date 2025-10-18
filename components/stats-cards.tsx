@@ -71,14 +71,14 @@ export function StatsCards({ stats }: { stats: Stats }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-2 justify-center">
+      <div className="flex flex-col gap-2 max-w-md mx-auto">
         {(["running", "cycling", "swimming", "sports_plus"] as const).map((sport) => {
           const Icon = sportIcons[sport]
           return (
             <button
               key={sport}
               onClick={() => setSelectedSport(sport)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all ${
+              className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all ${
                 selectedSport === sport
                   ? "bg-blue-600 text-white shadow-md"
                   : "bg-card text-muted-foreground hover:bg-accent"

@@ -97,7 +97,7 @@ export default async function RewardsPage() {
             </TabsTrigger>
             <TabsTrigger value="used" className="text-xs sm:text-sm py-2">
               <span className="hidden sm:inline">Expirados</span>
-              <span className="sm:hidden">Usados</span>
+              <span className="sm:hidden">Expirados</span>
               <span className="ml-1">({usedCoupons.length})</span>
             </TabsTrigger>
           </TabsList>
