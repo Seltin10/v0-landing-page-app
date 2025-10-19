@@ -75,8 +75,8 @@
 }
 
 @theme inline {
-  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -125,6 +125,7 @@
 }
 
 @layer utilities {
+  /* Added scrollbar-hide utility for horizontal scroll */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

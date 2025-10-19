@@ -8,7 +8,6 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { User, Mail, Calendar, Award, Activity } from "lucide-react"
 import { Suspense } from "react"
-import { AchievementsSection } from "@/components/achievements-section"
 
 export default async function ProfilePage() {
   const session = await getSession()
@@ -27,14 +26,7 @@ export default async function ProfilePage() {
     WHERE user_id = ${session.id}
   `
 
-  const couponsStats = await sql`
-    SELECT COUNT(*) as used_coupons
-    FROM public.user_coupons
-    WHERE user_id = ${session.id} AND status = 'used'
-  `
-
   const userStats = stats[0]
-  const usedCouponsCount = Number(couponsStats[0]?.used_coupons || 0)
 
   const planLabels: Record<string, string> = {
     free: "Gratuito",
@@ -148,14 +140,6 @@ export default async function ProfilePage() {
             </div>
           </CardContent>
         </Card>
-
-        <AchievementsSection
-          totalDistance={Number(userStats.total_distance)}
-          totalCalories={Number(userStats.total_calories)}
-          totalActivities={Number(userStats.total_activities)}
-          usedCoupons={usedCouponsCount}
-          userPlan={session.plan_type}
-        />
       </main>
       <Suspense fallback={<div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t" />}>
         <BottomNav />
