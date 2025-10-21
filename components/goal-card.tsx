@@ -33,6 +33,7 @@ export function GoalCard({ goal, userPlan }: { goal: Goal; userPlan: string }) {
     running: "Corrida",
     cycling: "Ciclismo",
     swimming: "Natação",
+    sports_plus: "SPORTS+",
     any: "Qualquer",
   }
 

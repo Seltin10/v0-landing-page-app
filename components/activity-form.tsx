@@ -69,6 +69,7 @@ export function ActivityForm({ userId }: { userId: string }) {
                 <SelectItem value="running">Corrida</SelectItem>
                 <SelectItem value="cycling">Ciclismo</SelectItem>
                 <SelectItem value="swimming">Natação</SelectItem>
+                <SelectItem value="sports_plus">SPORTS+</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { User, Target, Store, Gift, Users } from "lucide-react"
+import { User, Target, Store, Wallet, Users } from "lucide-react"
 import { Suspense } from "react"
 
 function BottomNavContent() {
@@ -12,7 +12,7 @@ function BottomNavContent() {
     { href: "/profile", icon: User, label: "Perfil" },
     { href: "/dashboard", icon: Target, label: "Metas" },
     { href: "/partners", icon: Store, label: "Parceiros" },
-    { href: "/rewards", icon: Gift, label: "Carteira" },
+    { href: "/rewards", icon: Wallet, label: "Carteira" },
     { href: "/communities", icon: Users, label: "Grupos" },
   ]
 

@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Activity, Bike, Waves, Flame, Dumbbell } from "lucide-react"
+import { Activity, Bike, Waves, Flame, Trophy } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { useState } from "react"
 
@@ -13,20 +13,20 @@ interface Stats {
 }
 
 export function StatsCards({ stats }: { stats: Stats }) {
-  const [selectedSport, setSelectedSport] = useState<"running" | "cycling" | "swimming" | "sportsplus">("running")
+  const [selectedSport, setSelectedSport] = useState<"running" | "cycling" | "swimming" | "sports_plus">("running")
 
   const sportLabels = {
     running: "CORRIDA",
     cycling: "BIKE",
     swimming: "NATAÇÃO",
-    sportsplus: "SPORTS+",
+    sports_plus: "SPORTS+",
   }
 
   const sportIcons = {
     running: Activity,
     cycling: Bike,
     swimming: Waves,
-    sportsplus: Dumbbell,
+    sports_plus: Trophy,
   }
 
   const dailyProgress = Math.min((stats.total_running / stats.daily_goal) * 100, 100)
@@ -34,97 +34,51 @@ export function StatsCards({ stats }: { stats: Stats }) {
   const monthlyProgress = Math.min((stats.total_running / stats.monthly_goal) * 100, 100)
   const caloricProgress = 45 // Mock data for now
 
-  const getWeeklyTarget = () => {
-    if (selectedSport === "cycling") return "20 KM"
-    if (selectedSport === "swimming") return "2.000 M"
-    return "7 KM"
-  }
-
-  const getMonthlyTarget = () => {
-    if (selectedSport === "cycling") return "80 KM"
-    if (selectedSport === "swimming") return "8.000 M"
-    return "30 KM"
-  }
-
-  const sportsPlusGoals = [
-    {
-      title: "META CALÓRICA 1",
-      target: "2.000 KCAL",
-      current: "900",
-      progress: 45,
-      icon: Flame,
-    },
-    {
-      title: "META CALÓRICA 2",
-      target: "5.000 KCAL",
-      current: "2.250",
-      progress: 45,
-      icon: Flame,
-    },
-    {
-      title: "META CALÓRICA 3",
-      target: "8.000 KCAL",
-      current: "3.600",
-      progress: 45,
-      icon: Flame,
-    },
-    {
-      title: "META CALÓRICA 4",
-      target: "10.000 KCAL",
-      current: "4.500",
-      progress: 45,
-      icon: Flame,
-    },
-  ]
-
-  const allGoals = [
-    {
-      title: "META DIÁRIA",
-      target: "2 KM",
-      current: Number(stats.total_running).toFixed(1),
-      progress: dailyProgress,
-      icon: Activity,
-      sports: ["running"], // Only show for running
-    },
-    {
-      title: "META SEMANAL",
-      target: getWeeklyTarget(),
-      current: Number(stats.total_running).toFixed(1),
-      progress: weeklyProgress,
-      icon: Activity,
-      sports: ["running", "cycling", "swimming"], // Show for all sports
-    },
-    {
-      title: "META MENSAL",
-      target: getMonthlyTarget(),
-      current: Number(stats.total_running).toFixed(1),
-      progress: monthlyProgress,
-      icon: Activity,
-      sports: ["running", "cycling", "swimming"], // Show for all sports
-    },
-    {
-      title: "META CALÓRICA",
-      target: "5.000 KCAL",
-      current: "2.250",
-      progress: caloricProgress,
-      icon: Flame,
-      sports: ["running", "cycling", "swimming"], // Show for all sports
-    },
-  ]
-
   const goals =
-    selectedSport === "sportsplus" ? sportsPlusGoals : allGoals.filter((goal) => goal.sports.includes(selectedSport))
+    selectedSport === "sports_plus"
+      ? [
+          {
+            title: "META CALÓRICA",
+            target: "5.000 KCAL",
+            current: "2.250",
+            progress: caloricProgress,
+            icon: Flame,
+          },
+        ]
+      : [
+          {
+            title: "META DIÁRIA",
+            target: "2 KM",
+            current: Number(stats.total_running).toFixed(1),
+            progress: dailyProgress,
+            icon: Activity,
+          },
+          {
+            title: "META SEMANAL",
+            target: "7 KM",
+            current: Number(stats.total_running).toFixed(1),
+            progress: weeklyProgress,
+            icon: Activity,
+          },
+          {
+            title: "META MENSAL",
+            target: "30 KM",
+            current: Number(stats.total_running).toFixed(1),
+            progress: monthlyProgress,
+            icon: Activity,
+          },
+        ]
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-2 justify-center flex-wrap">
-        {(["running", "cycling", "swimming", "sportsplus"] as const).map((sport) => {
+      <div className="flex flex-col gap-2 max-w-md mx-auto">
+        {(["running", "cycling", "swimming", "sports_plus"] as const).map((sport) => {
           const Icon = sportIcons[sport]
           return (
             <button
               key={sport}
               onClick={() => setSelectedSport(sport)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all ${
+              className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm transition-all font-light ${
                 selectedSport === sport
                   ? "bg-blue-600 text-white shadow-md"
                   : "bg-card text-muted-foreground hover:bg-accent"
@@ -137,7 +91,7 @@ export function StatsCards({ stats }: { stats: Stats }) {
         })}
       </div>
 
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+      <div className={`grid gap-3 ${selectedSport === "sports_plus" ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-3"}`}>
         {goals.map((goal) => {
           const Icon = goal.icon
           return (
@@ -155,7 +109,7 @@ export function StatsCards({ stats }: { stats: Stats }) {
                 </div>
                 <div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
-                    <span className="font-medium">Progresso</span>
+                    <span className="font-light">Progresso</span>
                     <span className="font-semibold">{goal.progress.toFixed(0)}%</span>
                   </div>
                   <Progress value={goal.progress} className="h-2" />

@@ -121,7 +121,7 @@ export function LoginForm() {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">OU</span>
+            <span className="bg-background px-2 text-muted-foreground">{"ou"}</span>
           </div>
         </div>
 
@@ -140,9 +140,9 @@ export function LoginForm() {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col">
-        <p className="text-sm text-center text-muted-foreground">
+        <p className="text-sm text-center text-muted-foreground font-light">
           Não tem uma conta?{" "}
-          <Link href="/signup" className="text-primary hover:underline">
+          <Link href="/signup" className="text-primary hover:underline font-semibold">
             Cadastre-se
           </Link>
         </p>

@@ -31,9 +31,7 @@ export default async function HomePage() {
             <div className="flex flex-col items-center">
               <h1 className={`${oswald.className} text-8xl font-medium text-white leading-none tracking-tight italic`}>
                 <span className="inline-block">
-                  <span className="relative inline-block">
-                    i
-                  </span>
+                  <span className="relative inline-block">i</span>
                   Run
                 </span>
               </h1>
@@ -42,10 +40,8 @@ export default async function HomePage() {
               </p>
             </div>
           </div>
-          <p className="text-2xl text-white/90 max-w-2xl">A corrida que recompensa você!</p>
-          <p className="text-lg text-white/80 max-w-xl">
-            Conecte suas atividades físicas, complete metas e ganhe cupons de desconto em estabelecimentos parceiros.
-          </p>
+          <p className="text-2xl text-white/90 max-w-2xl font-extralight text-center">O clube que transforma saúde em recompensa</p>
+          
           <div className="flex gap-4 mt-8">
             <Button asChild size="lg" variant="secondary">
               <Link href="/signup">Começar Agora</Link>
