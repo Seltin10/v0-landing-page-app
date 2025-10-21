@@ -63,7 +63,7 @@ export function LoginForm() {
         <div className="flex justify-center mb-4">
           <Image src="/logo-irun.png" alt="iRun Clube+" width={120} height={120} className="object-contain" />
         </div>
-        <CardTitle className="text-2xl text-center">Bem-vindo de volta</CardTitle>
+        <CardTitle className="text-2xl text-center">{""}</CardTitle>
         <CardDescription className="text-center">Entre com sua conta para continuar</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -121,7 +121,7 @@ export function LoginForm() {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">{"ou"}</span>
+            <span className="bg-background px-2 text-muted-foreground">OU</span>
           </div>
         </div>
 
@@ -140,9 +140,9 @@ export function LoginForm() {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col">
-        <p className="text-sm text-center text-muted-foreground font-light">
+        <p className="text-sm text-center text-muted-foreground">
           Não tem uma conta?{" "}
-          <Link href="/signup" className="text-primary hover:underline font-semibold">
+          <Link href="/signup" className="text-primary hover:underline">
             Cadastre-se
           </Link>
         </p>

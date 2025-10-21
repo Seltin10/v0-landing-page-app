@@ -71,14 +71,14 @@ export function StatsCards({ stats }: { stats: Stats }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-2 max-w-md mx-auto">
+      <div className="flex flex-col gap-2 items-center">
         {(["running", "cycling", "swimming", "sports_plus"] as const).map((sport) => {
           const Icon = sportIcons[sport]
           return (
             <button
               key={sport}
               onClick={() => setSelectedSport(sport)}
-              className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm transition-all font-light ${
+              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg font-semibold text-xs transition-all w-48 ${
                 selectedSport === sport
                   ? "bg-blue-600 text-white shadow-md"
                   : "bg-card text-muted-foreground hover:bg-accent"
@@ -104,13 +104,13 @@ export function StatsCards({ stats }: { stats: Stats }) {
               </CardHeader>
               <CardContent className="space-y-2.5">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold">{goal.current}</span>
-                  <span className="text-sm text-muted-foreground font-medium">/ {goal.target}</span>
+                  <span className="text-2xl font-normal">{goal.current}</span>
+                  <span className="text-sm text-muted-foreground font-normal">/ {goal.target}</span>
                 </div>
                 <div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
-                    <span className="font-light">Progresso</span>
-                    <span className="font-semibold">{goal.progress.toFixed(0)}%</span>
+                    <span className="font-normal">Progresso</span>
+                    <span className="font-normal">{goal.progress.toFixed(0)}%</span>
                   </div>
                   <Progress value={goal.progress} className="h-2" />
                 </div>

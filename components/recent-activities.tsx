@@ -41,7 +41,7 @@ export function RecentActivities({ activities }: { activities: ActivityData[] })
           <CardDescription>Suas últimas atividades aparecerão aqui</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground text-center py-8 font-extralight">Nenhuma atividade registrada ainda</p>
+          <p className="text-sm text-muted-foreground text-center py-8">Nenhuma atividade registrada ainda</p>
         </CardContent>
       </Card>
     )
