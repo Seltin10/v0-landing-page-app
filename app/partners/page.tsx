@@ -151,7 +151,7 @@ export default function PartnersPage() {
       <DashboardHeader user={{ name: "Usuário" }} />
       <main className="container mx-auto px-3 py-4 sm:px-4 sm:py-6 space-y-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold mb-1">Parceiros</h1>
+          <h1 className="text-xl sm:text-2xl mb-1 font-normal">Parceiros</h1>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             Conheça nossos parceiros e os cupons disponíveis
           </p>

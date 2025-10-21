@@ -86,7 +86,7 @@ export default async function DashboardPage() {
         <PartnerAdsBanner partners={partners} />
 
         <div>
-          <h1 className="sm:text-2xl mb-1 font-normal text-xl">Minhas Metas</h1>
+          <h1 className="sm:text-2xl mb-1 text-xl leading-5 font-normal">Minhas Metas</h1>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             Sincronizado via Apple Health, Google Fit e Strava
           </p>

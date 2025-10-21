@@ -44,7 +44,7 @@ export function RewardStatsCards({ stats }: { stats: RewardStats }) {
               <Icon className="h-4 w-4 text-green-600 flex-shrink-0" />
             </CardHeader>
             <CardContent className="space-y-1">
-              <div className="text-2xl font-bold">{card.value}</div>
+              <div className="font-semibold text-xl">{card.value}</div>
               <p className="text-xs text-muted-foreground">{card.description}</p>
             </CardContent>
           </Card>

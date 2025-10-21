@@ -104,8 +104,8 @@ export function StatsCards({ stats }: { stats: Stats }) {
               </CardHeader>
               <CardContent className="space-y-2.5">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-normal">{goal.current}</span>
-                  <span className="text-sm text-muted-foreground font-normal">/ {goal.target}</span>
+                  <span className="font-normal text-xl">{goal.current}</span>
+                  <span className="text-muted-foreground font-normal text-xs">/ {goal.target}</span>
                 </div>
                 <div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">

@@ -40,9 +40,9 @@ export default async function HomePage() {
               </p>
             </div>
           </div>
-          <p className="text-2xl text-white/90 max-w-2xl">O clube que transforma saúde em recompensa</p>
+          <p className="text-white/90 max-w-2xl leading-6 font-extralight text-base">O clube que transforma saúde em recompensa</p>
           <p className="text-lg text-white/80 max-w-xl">
-            Conecte suas atividades físicas, complete metas e ganhe cupons de desconto em estabelecimentos parceiros.
+            {""}
           </p>
           <div className="flex gap-4 mt-8">
             <Button asChild size="lg" variant="secondary">
