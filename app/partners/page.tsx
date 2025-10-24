@@ -6,6 +6,7 @@ import { BottomNav } from "@/components/bottom-nav"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Ticket } from "lucide-react"
 import Image from "next/image"
 
 const MOCK_PARTNERS = [
@@ -16,6 +17,11 @@ const MOCK_PARTNERS = [
     category: "Restaurantes",
     logo_url: "/restaurant-logo.png",
     coupon_count: 3,
+    coupons: [
+      { id: 1, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 2, type: "fixed", value: 25, description: "R$ 25 OFF" },
+      { id: 3, type: "percentage", value: 20, description: "20% OFF" },
+    ],
   },
   {
     id: 2,
@@ -23,17 +29,47 @@ const MOCK_PARTNERS = [
     category: "Restaurantes",
     logo_url: "/pizza-logo.png",
     coupon_count: 2,
+    coupons: [
+      { id: 1, type: "percentage", value: 10, description: "10% OFF" },
+      { id: 2, type: "fixed", value: 30, description: "R$ 30 OFF" },
+    ],
   },
-  { id: 3, name: "Café Energia", category: "Restaurantes", logo_url: "/cafe-logo.png", coupon_count: 1 },
+  {
+    id: 3,
+    name: "Café Energia",
+    category: "Restaurantes",
+    logo_url: "/cafe-logo.png",
+    coupon_count: 1,
+    coupons: [{ id: 1, type: "percentage", value: 15, description: "15% OFF" }],
+  },
 
   // Lojas Esportivas
-  { id: 4, name: "SportMax", category: "Lojas Esportivas", logo_url: "/sports-store-logo.png", coupon_count: 5 },
+  {
+    id: 4,
+    name: "SportMax",
+    category: "Lojas Esportivas",
+    logo_url: "/sports-store-logo.png",
+    coupon_count: 5,
+    coupons: [
+      { id: 1, type: "percentage", value: 20, description: "20% OFF" },
+      { id: 2, type: "fixed", value: 50, description: "R$ 50 OFF" },
+      { id: 3, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 4, type: "fixed", value: 100, description: "R$ 100 OFF" },
+      { id: 5, type: "percentage", value: 25, description: "25% OFF" },
+    ],
+  },
   {
     id: 5,
     name: "Corrida & Cia",
     category: "Lojas Esportivas",
     logo_url: "/running-store-logo.jpg",
     coupon_count: 4,
+    coupons: [
+      { id: 1, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 2, type: "fixed", value: 40, description: "R$ 40 OFF" },
+      { id: 3, type: "percentage", value: 20, description: "20% OFF" },
+      { id: 4, type: "fixed", value: 60, description: "R$ 60 OFF" },
+    ],
   },
   {
     id: 6,
@@ -41,6 +77,11 @@ const MOCK_PARTNERS = [
     category: "Lojas Esportivas",
     logo_url: "/bike-shop-logo.jpg",
     coupon_count: 3,
+    coupons: [
+      { id: 1, type: "percentage", value: 10, description: "10% OFF" },
+      { id: 2, type: "fixed", value: 75, description: "R$ 75 OFF" },
+      { id: 3, type: "percentage", value: 18, description: "18% OFF" },
+    ],
   },
 
   // Roupas e Vestuário
@@ -50,6 +91,14 @@ const MOCK_PARTNERS = [
     category: "Roupas e Vestuário",
     logo_url: "/fitness-clothing-logo.jpg",
     coupon_count: 6,
+    coupons: [
+      { id: 1, type: "percentage", value: 25, description: "25% OFF" },
+      { id: 2, type: "fixed", value: 35, description: "R$ 35 OFF" },
+      { id: 3, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 4, type: "fixed", value: 50, description: "R$ 50 OFF" },
+      { id: 5, type: "percentage", value: 30, description: "30% OFF" },
+      { id: 6, type: "fixed", value: 20, description: "R$ 20 OFF" },
+    ],
   },
   {
     id: 8,
@@ -57,6 +106,12 @@ const MOCK_PARTNERS = [
     category: "Roupas e Vestuário",
     logo_url: "/activewear-logo.jpg",
     coupon_count: 4,
+    coupons: [
+      { id: 1, type: "percentage", value: 20, description: "20% OFF" },
+      { id: 2, type: "fixed", value: 45, description: "R$ 45 OFF" },
+      { id: 3, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 4, type: "fixed", value: 30, description: "R$ 30 OFF" },
+    ],
   },
   {
     id: 9,
@@ -64,6 +119,10 @@ const MOCK_PARTNERS = [
     category: "Roupas e Vestuário",
     logo_url: "/urban-clothing-logo.jpg",
     coupon_count: 2,
+    coupons: [
+      { id: 1, type: "percentage", value: 12, description: "12% OFF" },
+      { id: 2, type: "fixed", value: 25, description: "R$ 25 OFF" },
+    ],
   },
 
   // Suplementos
@@ -73,14 +132,74 @@ const MOCK_PARTNERS = [
     category: "Suplementos",
     logo_url: "/supplements-logo.jpg",
     coupon_count: 7,
+    coupons: [
+      { id: 1, type: "percentage", value: 20, description: "20% OFF" },
+      { id: 2, type: "fixed", value: 50, description: "R$ 50 OFF" },
+      { id: 3, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 4, type: "fixed", value: 30, description: "R$ 30 OFF" },
+      { id: 5, type: "percentage", value: 25, description: "25% OFF" },
+      { id: 6, type: "fixed", value: 40, description: "R$ 40 OFF" },
+      { id: 7, type: "percentage", value: 10, description: "10% OFF" },
+    ],
   },
-  { id: 11, name: "Proteína Max", category: "Suplementos", logo_url: "/protein-logo.jpg", coupon_count: 5 },
-  { id: 12, name: "Vita Store", category: "Suplementos", logo_url: "/vitamins-logo.jpg", coupon_count: 3 },
+  {
+    id: 11,
+    name: "Proteína Max",
+    category: "Suplementos",
+    logo_url: "/protein-logo.jpg",
+    coupon_count: 5,
+    coupons: [
+      { id: 1, type: "percentage", value: 18, description: "18% OFF" },
+      { id: 2, type: "fixed", value: 35, description: "R$ 35 OFF" },
+      { id: 3, type: "percentage", value: 22, description: "22% OFF" },
+      { id: 4, type: "fixed", value: 60, description: "R$ 60 OFF" },
+      { id: 5, type: "percentage", value: 15, description: "15% OFF" },
+    ],
+  },
+  {
+    id: 12,
+    name: "Vita Store",
+    category: "Suplementos",
+    logo_url: "/vitamins-logo.jpg",
+    coupon_count: 3,
+    coupons: [
+      { id: 1, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 2, type: "fixed", value: 25, description: "R$ 25 OFF" },
+      { id: 3, type: "percentage", value: 20, description: "20% OFF" },
+    ],
+  },
 
   // Eventos
-  { id: 13, name: "Maratona São Paulo", category: "Eventos", logo_url: "/marathon-logo.png", coupon_count: 2 },
-  { id: 14, name: "Corrida das Cores", category: "Eventos", logo_url: "/color-run-logo.jpg", coupon_count: 1 },
-  { id: 15, name: "Triathlon Brasil", category: "Eventos", logo_url: "/triathlon-logo.jpg", coupon_count: 2 },
+  {
+    id: 13,
+    name: "Maratona São Paulo",
+    category: "Eventos",
+    logo_url: "/marathon-logo.png",
+    coupon_count: 2,
+    coupons: [
+      { id: 1, type: "percentage", value: 10, description: "10% OFF" },
+      { id: 2, type: "fixed", value: 50, description: "R$ 50 OFF" },
+    ],
+  },
+  {
+    id: 14,
+    name: "Corrida das Cores",
+    category: "Eventos",
+    logo_url: "/color-run-logo.jpg",
+    coupon_count: 1,
+    coupons: [{ id: 1, type: "percentage", value: 15, description: "15% OFF" }],
+  },
+  {
+    id: 15,
+    name: "Triathlon Brasil",
+    category: "Eventos",
+    logo_url: "/triathlon-logo.jpg",
+    coupon_count: 2,
+    coupons: [
+      { id: 1, type: "percentage", value: 12, description: "12% OFF" },
+      { id: 2, type: "fixed", value: 40, description: "R$ 40 OFF" },
+    ],
+  },
 
   // Serviços Gerais
   {
@@ -89,6 +208,12 @@ const MOCK_PARTNERS = [
     category: "Serviços Gerais",
     logo_url: "/personal-trainer-logo.jpg",
     coupon_count: 4,
+    coupons: [
+      { id: 1, type: "percentage", value: 20, description: "20% OFF" },
+      { id: 2, type: "fixed", value: 100, description: "R$ 100 OFF" },
+      { id: 3, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 4, type: "fixed", value: 50, description: "R$ 50 OFF" },
+    ],
   },
   {
     id: 17,
@@ -96,6 +221,11 @@ const MOCK_PARTNERS = [
     category: "Serviços Gerais",
     logo_url: "/physiotherapy-logo.jpg",
     coupon_count: 3,
+    coupons: [
+      { id: 1, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 2, type: "fixed", value: 60, description: "R$ 60 OFF" },
+      { id: 3, type: "percentage", value: 25, description: "25% OFF" },
+    ],
   },
   {
     id: 18,
@@ -103,6 +233,10 @@ const MOCK_PARTNERS = [
     category: "Serviços Gerais",
     logo_url: "/nutritionist-logo.jpg",
     coupon_count: 2,
+    coupons: [
+      { id: 1, type: "percentage", value: 10, description: "10% OFF" },
+      { id: 2, type: "fixed", value: 40, description: "R$ 40 OFF" },
+    ],
   },
 
   // Saúde e Beleza
@@ -112,6 +246,13 @@ const MOCK_PARTNERS = [
     category: "Saúde e Beleza",
     logo_url: "/spa-logo.png",
     coupon_count: 5,
+    coupons: [
+      { id: 1, type: "percentage", value: 20, description: "20% OFF" },
+      { id: 2, type: "fixed", value: 80, description: "R$ 80 OFF" },
+      { id: 3, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 4, type: "fixed", value: 50, description: "R$ 50 OFF" },
+      { id: 5, type: "percentage", value: 25, description: "25% OFF" },
+    ],
   },
   {
     id: 20,
@@ -119,6 +260,12 @@ const MOCK_PARTNERS = [
     category: "Saúde e Beleza",
     logo_url: "/aesthetic-clinic-logo.jpg",
     coupon_count: 4,
+    coupons: [
+      { id: 1, type: "percentage", value: 18, description: "18% OFF" },
+      { id: 2, type: "fixed", value: 100, description: "R$ 100 OFF" },
+      { id: 3, type: "percentage", value: 22, description: "22% OFF" },
+      { id: 4, type: "fixed", value: 70, description: "R$ 70 OFF" },
+    ],
   },
   {
     id: 21,
@@ -126,6 +273,11 @@ const MOCK_PARTNERS = [
     category: "Saúde e Beleza",
     logo_url: "/massage-logo.jpg",
     coupon_count: 3,
+    coupons: [
+      { id: 1, type: "percentage", value: 15, description: "15% OFF" },
+      { id: 2, type: "fixed", value: 45, description: "R$ 45 OFF" },
+      { id: 3, type: "percentage", value: 20, description: "20% OFF" },
+    ],
   },
 ]
 
@@ -191,10 +343,28 @@ export default function PartnersPage() {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between pt-1 border-t">
-                  <span className="text-xs text-muted-foreground">Cupons disponíveis</span>
-                  <Badge variant="secondary" className="font-semibold text-xs">
+              <CardContent className="space-y-3">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <Ticket className="h-3.5 w-3.5" />
+                    <span>Cupons disponíveis:</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {partner.coupons.map((coupon) => (
+                      <Badge
+                        key={coupon.id}
+                        variant={coupon.type === "percentage" ? "default" : "secondary"}
+                        className="text-xs font-semibold"
+                      >
+                        {coupon.description}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t">
+                  <span className="text-xs text-muted-foreground">Total de cupons</span>
+                  <Badge variant="outline" className="font-semibold text-xs">
                     {partner.coupon_count}
                   </Badge>
                 </div>

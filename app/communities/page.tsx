@@ -18,7 +18,7 @@ export default async function CommunitiesPage() {
       <DashboardHeader user={session} />
       <main className="container mx-auto px-3 py-4 sm:px-4 sm:py-6">
         <div className="mb-6">
-          <h1 className="text-xl sm:text-2xl font-bold mb-1">Comunidades</h1>
+          <h1 className="text-xl sm:text-2xl mb-1 font-normalalalalalalal">Comunidades</h1>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">Conecte-se com outros atletas</p>
         </div>
 

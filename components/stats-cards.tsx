@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Activity, Bike, Waves, Flame, Trophy } from "lucide-react"
+import { Activity, Bike, Waves, Flame, Trophy, Medal, Gem } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { useState } from "react"
 
@@ -10,6 +10,7 @@ interface Stats {
   daily_goal: number
   weekly_goal: number
   monthly_goal: number
+  diamond_goal: number
 }
 
 export function StatsCards({ stats }: { stats: Stats }) {
@@ -29,9 +30,10 @@ export function StatsCards({ stats }: { stats: Stats }) {
     sports_plus: Trophy,
   }
 
-  const dailyProgress = Math.min((stats.total_running / stats.daily_goal) * 100, 100)
-  const weeklyProgress = Math.min((stats.total_running / stats.weekly_goal) * 100, 100)
-  const monthlyProgress = Math.min((stats.total_running / stats.monthly_goal) * 100, 100)
+  const bronzeProgress = Math.min((stats.total_running / stats.daily_goal) * 100, 100)
+  const silverProgress = Math.min((stats.total_running / stats.weekly_goal) * 100, 100)
+  const goldProgress = Math.min((stats.total_running / stats.monthly_goal) * 100, 100)
+  const diamondProgress = Math.min((stats.total_running / stats.diamond_goal) * 100, 100)
   const caloricProgress = 45 // Mock data for now
 
   const goals =
@@ -43,29 +45,41 @@ export function StatsCards({ stats }: { stats: Stats }) {
             current: "2.250",
             progress: caloricProgress,
             icon: Flame,
+            iconColor: "text-orange-500",
           },
         ]
       : [
           {
-            title: "META DIÁRIA",
+            title: "META BRONZE",
             target: "2 KM",
             current: Number(stats.total_running).toFixed(1),
-            progress: dailyProgress,
-            icon: Activity,
+            progress: bronzeProgress,
+            icon: Medal,
+            iconColor: "text-amber-700",
           },
           {
-            title: "META SEMANAL",
+            title: "META PRATA",
             target: "7 KM",
             current: Number(stats.total_running).toFixed(1),
-            progress: weeklyProgress,
-            icon: Activity,
+            progress: silverProgress,
+            icon: Medal,
+            iconColor: "text-gray-400",
           },
           {
-            title: "META MENSAL",
+            title: "META OURO",
             target: "30 KM",
             current: Number(stats.total_running).toFixed(1),
-            progress: monthlyProgress,
-            icon: Activity,
+            progress: goldProgress,
+            icon: Medal,
+            iconColor: "text-yellow-500",
+          },
+          {
+            title: "META DIAMANTE",
+            target: "100 KM",
+            current: Number(stats.total_running).toFixed(1),
+            progress: diamondProgress,
+            icon: Gem,
+            iconColor: "text-cyan-400",
           },
         ]
 
@@ -91,7 +105,7 @@ export function StatsCards({ stats }: { stats: Stats }) {
         })}
       </div>
 
-      <div className={`grid gap-3 ${selectedSport === "sports_plus" ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-3"}`}>
+      <div className={`grid gap-3 ${selectedSport === "sports_plus" ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
         {goals.map((goal) => {
           const Icon = goal.icon
           return (
@@ -100,7 +114,7 @@ export function StatsCards({ stats }: { stats: Stats }) {
                 <CardTitle className="text-xs font-bold text-muted-foreground uppercase tracking-wide">
                   {goal.title}
                 </CardTitle>
-                <Icon className="h-4 w-4 text-blue-600 flex-shrink-0" />
+                <Icon className={`h-4 w-4 flex-shrink-0 ${goal.iconColor}`} />
               </CardHeader>
               <CardContent className="space-y-2.5">
                 <div className="flex items-baseline gap-2">

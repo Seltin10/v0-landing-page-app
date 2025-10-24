@@ -71,6 +71,7 @@ export default async function DashboardPage() {
     daily_goal: 2,
     weekly_goal: 7,
     monthly_goal: 30,
+    diamond_goal: 100,
   }
 
   const rewardStats = {

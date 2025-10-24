@@ -77,7 +77,7 @@ export default async function RewardsPage() {
       <DashboardHeader user={session} />
       <main className="container mx-auto px-3 py-4 sm:px-4 sm:py-6 space-y-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold mb-1">Recompensas</h1>
+          <h1 className="text-xl sm:text-2xl mb-1 font-normalal">Recompensas</h1>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             Resgate e gerencie seus cupons de desconto
           </p>
