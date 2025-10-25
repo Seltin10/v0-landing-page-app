@@ -70,7 +70,7 @@ export default async function ProfilePage() {
                 <p className="text-sm text-muted-foreground">{session.email}</p>
               </div>
               <Badge variant="default" className="text-sm">
-                {planLabels[session.plan_type] || "Free"}
+                {planLabels[session.plan_type] || "Gratuito"}
               </Badge>
             </div>
           </CardContent>

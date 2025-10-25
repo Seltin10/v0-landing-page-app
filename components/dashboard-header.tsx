@@ -39,7 +39,7 @@ export function DashboardHeader({ user }: { user: User }) {
           {/* User Info and Actions */}
           <div className="flex items-center gap-2">
             <Badge variant={planColors[user.plan_type] || "outline"} className="hidden sm:inline-flex text-xs">
-              {planLabels[user.plan_type] || "Free"}
+              {planLabels[user.plan_type] || "Gratuito"}
             </Badge>
 
             <DropdownMenu>
@@ -63,7 +63,7 @@ export function DashboardHeader({ user }: { user: User }) {
                   <p className="text-sm font-medium">{user.name}</p>
                   <p className="text-xs text-muted-foreground">{user.email}</p>
                   <Badge variant={planColors[user.plan_type] || "outline"} className="mt-2 text-xs">
-                    {planLabels[user.plan_type] || "Free"}
+                    {planLabels[user.plan_type] || "Gratuito"}
                   </Badge>
                 </div>
                 <DropdownMenuItem asChild>
