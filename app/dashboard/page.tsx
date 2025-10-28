@@ -17,7 +17,10 @@ export default async function DashboardPage() {
 
   const stats = await sql`
     SELECT 
-      COALESCE(SUM(CASE WHEN activity_type = 'running' THEN distance_km ELSE 0 END), 0) as total_running
+      COALESCE(SUM(CASE WHEN activity_type = 'running' THEN distance_km ELSE 0 END), 0) as total_running,
+      COALESCE(SUM(CASE WHEN activity_type = 'cycling' THEN distance_km ELSE 0 END), 0) as total_cycling,
+      COALESCE(SUM(CASE WHEN activity_type = 'swimming' THEN distance_km ELSE 0 END), 0) as total_swimming,
+      COALESCE(SUM(calories_burned), 0) as total_calories
     FROM public.activities
     WHERE user_id = ${session.id}
   `
@@ -68,10 +71,25 @@ export default async function DashboardPage() {
 
   const goalStats = {
     total_running: Number(stats[0].total_running),
-    daily_goal: 2,
-    weekly_goal: 7,
-    monthly_goal: 30,
-    diamond_goal: 100,
+    total_cycling: Number(stats[0].total_cycling),
+    total_swimming: Number(stats[0].total_swimming),
+    total_calories: Number(stats[0].total_calories),
+    running_bronze: 2,
+    running_silver: 5,
+    running_gold: 20,
+    running_diamond: 30,
+    cycling_bronze: 10,
+    cycling_silver: 20,
+    cycling_gold: 30,
+    cycling_diamond: 50,
+    // Swimming goals
+    swimming_bronze: 0.5,
+    swimming_silver: 1,
+    swimming_gold: 2,
+    swimming_diamond: 3,
+    calorie_bronze: 1000,
+    calorie_silver: 2000,
+    calorie_gold: 3000,
   }
 
   const rewardStats = {

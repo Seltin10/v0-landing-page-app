@@ -7,10 +7,24 @@ import { useState } from "react"
 
 interface Stats {
   total_running: number
-  daily_goal: number
-  weekly_goal: number
-  monthly_goal: number
-  diamond_goal: number
+  total_cycling: number
+  total_swimming: number
+  total_calories: number
+  running_bronze: number
+  running_silver: number
+  running_gold: number
+  running_diamond: number
+  cycling_bronze: number
+  cycling_silver: number
+  cycling_gold: number
+  cycling_diamond: number
+  swimming_bronze: number
+  swimming_silver: number
+  swimming_gold: number
+  swimming_diamond: number
+  calorie_bronze: number
+  calorie_silver: number
+  calorie_gold: number
 }
 
 export function StatsCards({ stats }: { stats: Stats }) {
@@ -30,53 +44,99 @@ export function StatsCards({ stats }: { stats: Stats }) {
     sports_plus: Trophy,
   }
 
-  const bronzeProgress = Math.min((stats.total_running / stats.daily_goal) * 100, 100)
-  const silverProgress = Math.min((stats.total_running / stats.weekly_goal) * 100, 100)
-  const goldProgress = Math.min((stats.total_running / stats.monthly_goal) * 100, 100)
-  const diamondProgress = Math.min((stats.total_running / stats.diamond_goal) * 100, 100)
-  const caloricProgress = 45 // Mock data for now
+  let currentDistance = 0
+  let bronzeGoal = 0
+  let silverGoal = 0
+  let goldGoal = 0
+  let diamondGoal = 0
+
+  if (selectedSport === "running") {
+    currentDistance = stats.total_running
+    bronzeGoal = stats.running_bronze
+    silverGoal = stats.running_silver
+    goldGoal = stats.running_gold
+    diamondGoal = stats.running_diamond
+  } else if (selectedSport === "cycling") {
+    currentDistance = stats.total_cycling
+    bronzeGoal = stats.cycling_bronze
+    silverGoal = stats.cycling_silver
+    goldGoal = stats.cycling_gold
+    diamondGoal = stats.cycling_diamond
+  } else if (selectedSport === "swimming") {
+    currentDistance = stats.total_swimming
+    bronzeGoal = stats.swimming_bronze
+    silverGoal = stats.swimming_silver
+    goldGoal = stats.swimming_gold
+    diamondGoal = stats.swimming_diamond
+  }
+
+  const bronzeProgress = Math.min((currentDistance / bronzeGoal) * 100, 100)
+  const silverProgress = Math.min((currentDistance / silverGoal) * 100, 100)
+  const goldProgress = Math.min((currentDistance / goldGoal) * 100, 100)
+  const diamondProgress = Math.min((currentDistance / diamondGoal) * 100, 100)
+
+  const calorieBronzeProgress = Math.min((stats.total_calories / stats.calorie_bronze) * 100, 100)
+  const calorieSilverProgress = Math.min((stats.total_calories / stats.calorie_silver) * 100, 100)
+  const calorieGoldProgress = Math.min((stats.total_calories / stats.calorie_gold) * 100, 100)
 
   const goals =
     selectedSport === "sports_plus"
-      ? [
+      ? // Updated SPORTS+ to show three calorie-based goals
+        [
           {
-            title: "META CALÓRICA",
-            target: "5.000 KCAL",
-            current: "2.250",
-            progress: caloricProgress,
+            title: "META BRONZE",
+            target: `${stats.calorie_bronze} KCAL`,
+            current: Number(stats.total_calories).toFixed(0),
+            progress: calorieBronzeProgress,
             icon: Flame,
-            iconColor: "text-orange-500",
+            iconColor: "text-amber-700",
+          },
+          {
+            title: "META PRATA",
+            target: `${stats.calorie_silver} KCAL`,
+            current: Number(stats.total_calories).toFixed(0),
+            progress: calorieSilverProgress,
+            icon: Flame,
+            iconColor: "text-gray-400",
+          },
+          {
+            title: "META OURO",
+            target: `${stats.calorie_gold} KCAL`,
+            current: Number(stats.total_calories).toFixed(0),
+            progress: calorieGoldProgress,
+            icon: Flame,
+            iconColor: "text-yellow-500",
           },
         ]
       : [
           {
             title: "META BRONZE",
-            target: "2 KM",
-            current: Number(stats.total_running).toFixed(1),
+            target: `${bronzeGoal} ${selectedSport === "swimming" ? "KM (500M)" : "KM"}`,
+            current: Number(currentDistance).toFixed(1),
             progress: bronzeProgress,
             icon: Medal,
             iconColor: "text-amber-700",
           },
           {
             title: "META PRATA",
-            target: "7 KM",
-            current: Number(stats.total_running).toFixed(1),
+            target: `${silverGoal} ${selectedSport === "swimming" ? "KM (1000M)" : "KM"}`,
+            current: Number(currentDistance).toFixed(1),
             progress: silverProgress,
             icon: Medal,
             iconColor: "text-gray-400",
           },
           {
             title: "META OURO",
-            target: "30 KM",
-            current: Number(stats.total_running).toFixed(1),
+            target: `${goldGoal} ${selectedSport === "swimming" ? "KM (2000M)" : "KM"}`,
+            current: Number(currentDistance).toFixed(1),
             progress: goldProgress,
             icon: Medal,
             iconColor: "text-yellow-500",
           },
           {
             title: "META DIAMANTE",
-            target: "100 KM",
-            current: Number(stats.total_running).toFixed(1),
+            target: `${diamondGoal} ${selectedSport === "swimming" ? "KM (3000M)" : "KM"}`,
+            current: Number(currentDistance).toFixed(1),
             progress: diamondProgress,
             icon: Gem,
             iconColor: "text-cyan-400",
@@ -105,7 +165,9 @@ export function StatsCards({ stats }: { stats: Stats }) {
         })}
       </div>
 
-      <div className={`grid gap-3 ${selectedSport === "sports_plus" ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
+      <div
+        className={`grid gap-3 ${selectedSport === "sports_plus" ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-2"}`}
+      >
         {goals.map((goal) => {
           const Icon = goal.icon
           return (
