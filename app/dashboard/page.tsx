@@ -84,6 +84,12 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-background pb-20">
       <DashboardHeader user={session} />
       <main className="container mx-auto px-3 py-4 sm:px-4 sm:py-6 space-y-6">
+        <div className="pt-2">
+          <h2 className="sm:text-3xl text-chart-4 leading-7 text-xl font-semibold font-mono mx-0 px-0 py-2.5 border-0">
+            Seja Bem-Vindo, {session.name || session.email?.split("@")[0]}
+          </h2>
+        </div>
+
         <PartnerAdsBanner partners={partners} />
 
         <div>
