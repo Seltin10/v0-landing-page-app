@@ -268,7 +268,7 @@ export function AchievementsSection({
               <div
                 key={achievement.id}
                 className={cn(
-                  "p-4 rounded-lg border transition-all",
+                  "p-4 rounded-lg transition-all border-2",
                   achievement.earned
                     ? cn("border-current", tierBgColors[achievement.tier])
                     : "border-border bg-muted/30 opacity-60",

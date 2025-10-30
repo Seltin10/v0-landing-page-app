@@ -9,12 +9,41 @@ import { Badge } from "@/components/ui/badge"
 import { User, Mail, Calendar, Award, Activity } from "lucide-react"
 import { Suspense } from "react"
 import { AchievementsSection } from "@/components/achievements-section"
+import { FeedbackForm } from "@/components/feedback-form"
 
 export default async function ProfilePage() {
   const session = await getSession()
 
   if (!session) {
     redirect("/login")
+  }
+
+  try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS public.user_feedback (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER NOT NULL,
+        motivation_scale INTEGER,
+        value_proposition_scale INTEGER,
+        problem_solution_fit TEXT,
+        willingness_to_pay INTEGER,
+        price_perception TEXT,
+        ease_of_use_scale INTEGER,
+        interface_rating INTEGER,
+        feature_priority TEXT,
+        main_differentiator TEXT,
+        improvement_suggestions TEXT,
+        recommendation_likelihood INTEGER,
+        biggest_challenge TEXT,
+        feature_requests TEXT,
+        additional_comments TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE
+      )
+    `
+  } catch (error) {
+    // Table might already exist or other error - continue anyway
+    console.log("[v0] Feedback table creation skipped:", error)
   }
 
   // Get user stats
@@ -32,6 +61,18 @@ export default async function ProfilePage() {
     FROM public.user_coupons
     WHERE user_id = ${session.id} AND status = 'used'
   `
+
+  let hasSubmittedFeedback = false
+  try {
+    const feedbackCheck = await sql`
+      SELECT id FROM public.user_feedback
+      WHERE user_id = ${session.id}
+    `
+    hasSubmittedFeedback = feedbackCheck.length > 0
+  } catch (error) {
+    // Error checking feedback - default to false
+    hasSubmittedFeedback = false
+  }
 
   const userStats = stats[0]
   const usedCouponsCount = Number(couponsStats[0]?.used_coupons || 0)
@@ -156,6 +197,8 @@ export default async function ProfilePage() {
           usedCoupons={usedCouponsCount}
           userPlan={session.plan_type}
         />
+
+        <FeedbackForm userId={session.id} hasSubmitted={hasSubmittedFeedback} />
       </main>
       <Suspense fallback={<div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t" />}>
         <BottomNav />
