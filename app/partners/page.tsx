@@ -314,7 +314,7 @@ export default function PartnersPage() {
     selectedCategory === "Todos" ? MOCK_PARTNERS : MOCK_PARTNERS.filter((p) => p.category === selectedCategory)
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen pb-20 bg-indigo-50">
       <DashboardHeader user={{ name: "Usuário" }} />
       <main className="container mx-auto px-3 py-4 sm:px-4 sm:py-6 space-y-6">
         <div>
@@ -350,6 +350,7 @@ export default function PartnersPage() {
                       width={56}
                       height={56}
                       className="rounded-lg object-contain"
+                      unoptimized
                     />
                   </div>
                   <div className="flex-1 min-w-0">

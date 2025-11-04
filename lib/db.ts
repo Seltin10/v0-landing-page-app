@@ -16,10 +16,34 @@ import { neon } from "@neondatabase/serverless"
  * @see https://neon.tech/docs/serverless/serverless-driver
  */
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL environment variable is not set. Please configure your Neon database connection.")
+let _sql: ReturnType<typeof neon> | null = null
+
+function getSql() {
+  if (!_sql) {
+    const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL
+
+    if (!databaseUrl) {
+      throw new Error(
+        "DATABASE_URL or POSTGRES_URL environment variable is not set. Please configure your Neon database connection.",
+      )
+    }
+
+    _sql = neon(databaseUrl, {
+      fetchOptions: {
+        cache: "no-store",
+      },
+    })
+  }
+  return _sql
 }
 
-const sql = neon(process.env.DATABASE_URL)
-
-export { sql }
+export const sql = new Proxy((() => {}) as unknown as ReturnType<typeof neon>, {
+  apply(target, thisArg, args) {
+    const realSql = getSql()
+    return realSql.apply(thisArg, args as any)
+  },
+  get(target, prop) {
+    const realSql = getSql()
+    return realSql[prop as keyof ReturnType<typeof neon>]
+  },
+})

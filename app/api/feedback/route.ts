@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     await sql`
       CREATE TABLE IF NOT EXISTS public.user_feedback (
         id SERIAL PRIMARY KEY,
-        user_id INTEGER NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+        user_id TEXT NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
         motivation_scale INTEGER CHECK (motivation_scale BETWEEN 1 AND 5),
         reward_ranking JSONB,
         value_perception INTEGER CHECK (value_perception BETWEEN 1 AND 5),

@@ -22,7 +22,7 @@ export default async function ProfilePage() {
     await sql`
       CREATE TABLE IF NOT EXISTS public.user_feedback (
         id SERIAL PRIMARY KEY,
-        user_id INTEGER NOT NULL,
+        user_id TEXT NOT NULL,
         motivation_scale INTEGER,
         value_proposition_scale INTEGER,
         problem_solution_fit TEXT,
@@ -85,11 +85,11 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen pb-20 bg-indigo-50">
       <DashboardHeader user={session} />
       <main className="container mx-auto px-3 py-4 sm:px-4 sm:py-6 space-y-6">
         <div className="mb-6">
-          <h1 className="text-xl sm:text-2xl mb-1 font-semiboldboldum">Meu Perfil</h1>
+          <h1 className="text-xl sm:text-2xl mb-1 font-semibold">Meu Perfil</h1>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">Suas informações e estatísticas</p>
         </div>
 

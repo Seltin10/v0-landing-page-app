@@ -18,13 +18,14 @@ interface PartnerAdsBannerProps {
 
 export function PartnerAdsBanner({ partners }: PartnerAdsBannerProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [imageError, setImageError] = useState<Record<number, boolean>>({})
 
   useEffect(() => {
     if (partners.length === 0) return
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % partners.length)
-    }, 5000) // Change ad every 5 seconds
+    }, 5000)
 
     return () => clearInterval(interval)
   }, [partners.length])
@@ -42,19 +43,24 @@ export function PartnerAdsBanner({ partners }: PartnerAdsBannerProps) {
   }
 
   const currentPartner = partners[currentIndex]
+  const hasImageError = imageError[currentPartner.id]
 
   return (
     <div className="relative w-full bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg overflow-hidden shadow-sm border border-blue-100 dark:border-blue-900">
       <div className="relative h-32 sm:h-40 flex items-center justify-center p-4">
         {/* Partner Logo/Image */}
         <div className="relative w-full h-full flex items-center justify-center">
-          {currentPartner.logo_url ? (
+          {currentPartner.logo_url && !hasImageError ? (
             <Image
               src={currentPartner.logo_url || "/placeholder.svg"}
               alt={`${currentPartner.name} - Parceiro iRun`}
               fill
               className="object-contain"
               priority
+              unoptimized
+              onError={() => {
+                setImageError((prev) => ({ ...prev, [currentPartner.id]: true }))
+              }}
             />
           ) : (
             <div className="flex flex-col items-center justify-center gap-2">

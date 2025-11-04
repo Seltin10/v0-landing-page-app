@@ -9,11 +9,11 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 import { Slider } from "@/components/ui/slider"
-import { MessageSquare, Loader2, CheckCircle2 } from "lucide-react"
+import { MessageSquare, Loader2, CheckCircle2, Send } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
 interface FeedbackFormProps {
-  userId: number
+  userId: string // Changed from number to string to match database TEXT type
   hasSubmitted?: boolean
 }
 
@@ -124,7 +124,7 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
-          <MessageSquare className="h-5 w-5 text-primary" />
+          <MessageSquare className="h-5 w-5 text-yellow-600" />
           <CardTitle>Sua Opinião é o Mais Importante!</CardTitle>
         </div>
         <CardDescription>
@@ -133,6 +133,14 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
         </CardDescription>
       </CardHeader>
       <CardContent>
+        <style jsx>{`
+          .gold-slider [data-slot="slider-range"] {
+            background-color: #daa520 !important;
+          }
+          .gold-slider [data-slot="slider-thumb"] {
+            border-color: #daa520 !important;
+          }
+        `}</style>
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Eixo 1: Motivação e Engajamento */}
           <div className="space-y-4">
@@ -147,12 +155,12 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
                   min={1}
                   max={5}
                   step={1}
-                  className="w-full"
+                  className="w-full shadow-md gold-slider"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>1 - Nada motivado</span>
+                  <span className="font-normal">1 - Nada motivado</span>
                   <span className="font-semibold text-primary">{motivationScale}</span>
-                  <span>5 - Muito motivado</span>
+                  <span className="font-normal">5 - Muito motivado</span>
                 </div>
               </div>
             </div>
@@ -202,12 +210,12 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
                   min={1}
                   max={5}
                   step={1}
-                  className="w-full"
+                  className="w-full shadow-md gold-slider"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>1 - Pouco atrativa</span>
+                  <span className="font-normal">1 - Pouco atrativa</span>
                   <span className="font-semibold text-primary">{valuePerception}</span>
-                  <span>5 - Muito atrativa</span>
+                  <span className="font-normal">5 - Muito atrativa</span>
                 </div>
               </div>
             </div>
@@ -221,12 +229,12 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
                   min={1}
                   max={5}
                   step={1}
-                  className="w-full"
+                  className="w-full shadow-md gold-slider"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>1 - Pouco importante</span>
+                  <span className="font-normal">1 - Pouco importante</span>
                   <span className="font-semibold text-primary">{partnerImportance}</span>
-                  <span>5 - Muito importante</span>
+                  <span className="font-normal">5 - Muito importante</span>
                 </div>
               </div>
             </div>
@@ -245,12 +253,12 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
                   min={1}
                   max={5}
                   step={1}
-                  className="w-full"
+                  className="w-full shadow-md gold-slider"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>1 - Difícil</span>
+                  <span className="font-normal">1 - Difícil</span>
                   <span className="font-semibold text-primary">{easeOfUse}</span>
-                  <span>5 - Muito fácil</span>
+                  <span className="font-normal">5 - Muito fácil</span>
                 </div>
               </div>
             </div>
@@ -379,12 +387,12 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
                   min={0}
                   max={10}
                   step={1}
-                  className="w-full"
+                  className="w-full shadow-md gold-slider"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>0 - Não recomendaria</span>
+                  <span className="font-normal">0 - Não recomendaria</span>
                   <span className="font-semibold text-primary">{recommendationLikelihood}</span>
-                  <span>10 - Recomendaria muito</span>
+                  <span className="font-normal">10 - Recomendaria muito</span>
                 </div>
               </div>
             </div>
@@ -420,14 +428,22 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
             </div>
           </div>
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isSubmitting}
+            style={{ backgroundColor: "#daa520", color: "white" }}
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Enviando...
               </>
             ) : (
-              "Enviar Feedback"
+              <>
+                <Send className="mr-2 h-4 w-4" style={{ color: "white" }} />
+                Enviar Feedback
+              </>
             )}
           </Button>
         </form>

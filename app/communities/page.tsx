@@ -86,7 +86,7 @@ export default async function CommunitiesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen pb-20 bg-indigo-50">
       <DashboardHeader user={session} />
       <main className="container mx-auto px-3 py-4 sm:px-4 sm:py-6">
         <div className="mb-6">
