@@ -136,7 +136,7 @@ export function EcoCalculator({ totalRunning, totalCycling }: EcoCalculatorProps
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <p className="text-xs font-medium text-green-800 mb-2">Selecione o meio de transporte:</p>
+          <p className="text-xs text-green-800 mb-2 font-semibold">Selecione o meio de transporte:</p>
           <div className="flex gap-2">
             {(["car", "motorcycle", "bus"] as const).map((transport) => {
               const Icon = transportIcons[transport]
@@ -144,7 +144,7 @@ export function EcoCalculator({ totalRunning, totalCycling }: EcoCalculatorProps
                 <button
                   key={transport}
                   onClick={() => setSelectedTransport(transport)}
-                  className={`flex-1 flex flex-col items-center gap-2 px-3 py-3 rounded-lg font-semibold text-xs transition-all ${
+                  className={`flex-1 flex flex-col items-center gap-2 px-3 py-3 rounded-lg font-semibold transition-all text-sm ${
                     selectedTransport === transport
                       ? "bg-green-600 text-white shadow-md"
                       : "bg-white text-green-700 hover:bg-green-100 border border-green-200"
@@ -162,26 +162,26 @@ export function EcoCalculator({ totalRunning, totalCycling }: EcoCalculatorProps
           <div className="bg-white rounded-lg p-4 border border-green-200">
             <div className="flex items-center gap-2 mb-2">
               <Leaf className="h-4 w-4 text-green-600" />
-              <p className="text-xs font-medium text-green-800">CO₂ Evitado</p>
+              <p className="text-green-800 font-semibold text-sm">CO₂ Evitado</p>
             </div>
             <p className="text-2xl font-bold text-green-900">
               {co2Avoided >= 1000 ? `${(co2Avoided / 1000).toFixed(2)} kg` : `${co2Avoided.toFixed(0)} g`}
             </p>
-            <p className="text-xs text-green-600 mt-1">De {totalDistance.toFixed(1)} km percorridos</p>
+            <p className="text-xs text-green-600 mt-1 font-normal">De {totalDistance.toFixed(1)} km percorridos</p>
           </div>
 
           <div className="bg-white rounded-lg p-4 border border-green-200">
             <div className="flex items-center gap-2 mb-2">
               <TreeDeciduous className="h-4 w-4 text-green-600" />
-              <p className="text-xs font-medium text-green-800">Equivalente em Árvores</p>
+              <p className="text-green-800 font-semibold text-sm">Equivalente em Árvores</p>
             </div>
             <p className="text-2xl font-bold text-green-900">{treeHours.toFixed(1)} h</p>
-            <p className="text-xs text-green-600 mt-1">Horas de absorção de CO₂</p>
+            <p className="text-xs text-green-600 mt-1 font-normal">Horas de absorção de CO₂</p>
           </div>
         </div>
 
         <div className="bg-white/50 rounded-lg p-3 border border-green-200">
-          <p className="text-xs text-green-700 leading-relaxed">
+          <p className="text-xs text-green-700 leading-relaxed font-thin">
             <span className="font-semibold">Metodologia:</span> Fatores de emissão do UK Government GHG Conversion
             Factors 2024 (DEFRA). Probabilidade de substituição: 30%. Taxa de absorção: 2,5 g CO₂/h por árvore.
           </p>
