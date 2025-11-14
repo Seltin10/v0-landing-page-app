@@ -40,7 +40,7 @@ export default async function HomePage() {
               </p>
             </div>
           </div>
-          <p className="text-white/90 max-w-2xl leading-6 font-extralight text-base">O clube que transforma saúde em recompensa</p>
+          <p className="text-white/90 max-w-2xl leading-6 font-extralight text-xl">O clube que transforma saúde em recompensa</p>
           <p className="text-lg text-white/80 max-w-xl">
             {""}
           </p>

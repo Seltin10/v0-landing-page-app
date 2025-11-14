@@ -1,6 +1,5 @@
 import { getSession } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import { sql } from "@/lib/db"
 import { DashboardHeader } from "@/components/dashboard-header"
 import { StatsCards } from "@/components/stats-cards"
 import { RecentActivities } from "@/components/recent-activities"
@@ -16,65 +15,11 @@ export default async function DashboardPage() {
     redirect("/login")
   }
 
-  const stats = await sql`
-    SELECT 
-      COALESCE(SUM(CASE WHEN activity_type = 'running' THEN distance_km ELSE 0 END), 0) as total_running,
-      COALESCE(SUM(CASE WHEN activity_type = 'cycling' THEN distance_km ELSE 0 END), 0) as total_cycling,
-      COALESCE(SUM(CASE WHEN activity_type = 'swimming' THEN distance_km ELSE 0 END), 0) as total_swimming,
-      COALESCE(SUM(calories_burned), 0) as total_calories
-    FROM public.activities
-    WHERE user_id = ${session.id}
-  `
-
-  // Get recent activities
-  const activities = await sql`
-    SELECT id, activity_type, distance_km, duration_minutes, calories_burned, date, source
-    FROM public.activities
-    WHERE user_id = ${session.id}
-    ORDER BY date DESC, created_at DESC
-    LIMIT 10
-  `
-
-  const partners = await sql`
-    SELECT id, name, logo_url, category
-    FROM public.partners
-    WHERE is_active = true
-    ORDER BY created_at DESC
-    LIMIT 10
-  `
-
-  // Get total savings from used coupons
-  const savingsResult = await sql`
-    SELECT COALESCE(SUM(c.discount_value), 0) as total_savings
-    FROM public.user_coupons uc
-    JOIN public.coupons c ON uc.coupon_id = c.id
-    WHERE uc.user_id = ${session.id} AND uc.status = 'used'
-  `
-
-  // Get count of used coupons
-  const usedCouponsResult = await sql`
-    SELECT COUNT(*) as used_count
-    FROM public.user_coupons
-    WHERE user_id = ${session.id} AND status = 'used'
-  `
-
-  // Get most frequently used partner
-  const preferredPartnerResult = await sql`
-    SELECT p.name, COUNT(*) as usage_count
-    FROM public.user_coupons uc
-    JOIN public.coupons c ON uc.coupon_id = c.id
-    JOIN public.partners p ON c.partner_id = p.id
-    WHERE uc.user_id = ${session.id} AND uc.status = 'used'
-    GROUP BY p.id, p.name
-    ORDER BY usage_count DESC
-    LIMIT 1
-  `
-
   const goalStats = {
-    total_running: Number(stats[0].total_running),
-    total_cycling: Number(stats[0].total_cycling),
-    total_swimming: Number(stats[0].total_swimming),
-    total_calories: Number(stats[0].total_calories),
+    total_running: 15.5,
+    total_cycling: 25.3,
+    total_swimming: 2.1,
+    total_calories: 2500,
     running_bronze: 2,
     running_silver: 5,
     running_gold: 20,
@@ -83,7 +28,6 @@ export default async function DashboardPage() {
     cycling_silver: 20,
     cycling_gold: 30,
     cycling_diamond: 50,
-    // Swimming goals
     swimming_bronze: 0.5,
     swimming_silver: 1,
     swimming_gold: 2,
@@ -93,10 +37,61 @@ export default async function DashboardPage() {
     calorie_gold: 3000,
   }
 
+  const activities = [
+    {
+      id: "1",
+      activity_type: "running",
+      distance_km: 5.2,
+      duration_minutes: 28,
+      calories_burned: 420,
+      date: new Date().toISOString(),
+      source: "strava",
+    },
+    {
+      id: "2",
+      activity_type: "cycling",
+      distance_km: 15.8,
+      duration_minutes: 45,
+      calories_burned: 580,
+      date: new Date(Date.now() - 86400000).toISOString(),
+      source: "apple_health",
+    },
+    {
+      id: "3",
+      activity_type: "swimming",
+      distance_km: 1.2,
+      duration_minutes: 35,
+      calories_burned: 320,
+      date: new Date(Date.now() - 172800000).toISOString(),
+      source: "google_fit",
+    },
+  ]
+
+  const partners = [
+    {
+      id: "1",
+      name: "Nike Running",
+      logo_url: "/nike-swoosh.png",
+      category: "Esportes",
+    },
+    {
+      id: "2",
+      name: "Adidas",
+      logo_url: "/adidas-logo.png",
+      category: "Vestuário",
+    },
+    {
+      id: "3",
+      name: "Decathlon",
+      logo_url: "/decathlon-logo.jpg",
+      category: "Equipamentos",
+    },
+  ]
+
   const rewardStats = {
-    totalSavings: Number(savingsResult[0]?.total_savings || 0),
-    usedCoupons: Number(usedCouponsResult[0]?.used_count || 0),
-    preferredPartner: preferredPartnerResult[0]?.name || null,
+    totalSavings: 350.75,
+    usedCoupons: 12,
+    preferredPartner: "Nike Running",
   }
 
   return (

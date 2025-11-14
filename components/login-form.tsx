@@ -10,31 +10,27 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import Image from "next/image"
 
 export function LoginForm() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setError("")
     setLoading(true)
 
-    const formData = new FormData(e.currentTarget)
-    const result = await signIn(formData)
+    console.log("[v0] Form submitted")
 
-    if (result.error) {
-      setError(result.error)
-      setLoading(false)
-    } else {
-      // Check if user needs LGPD consent
-      if (!result.user.lgpd_consent) {
-        router.push("/onboarding/consent")
-      } else {
-        router.push("/dashboard")
+    try {
+      const formData = new FormData(e.currentTarget)
+      await signIn(formData)
+    } catch (error) {
+      console.log("[v0] Login error:", error)
+      if (error instanceof Error && !error.message.includes("NEXT_REDIRECT")) {
+        setError("Erro ao fazer login")
+        setLoading(false)
       }
     }
   }
