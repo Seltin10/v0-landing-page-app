@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Activity, Bike, Waves, Flame, Trophy, Medal, Gem } from "lucide-react"
+import { Activity, Bike, Waves, Flame, Trophy, Medal, Gem } from 'lucide-react'
 import { Progress } from "@/components/ui/progress"
 import { useState } from "react"
 
@@ -34,7 +34,7 @@ export function StatsCards({ stats }: { stats: Stats }) {
     running: "CORRIDA",
     cycling: "BIKE",
     swimming: "NATAÇÃO",
-    sports_plus: "SPORTS+",
+    sports_plus: "META CALÓRICA",
   }
 
   const sportIcons = {

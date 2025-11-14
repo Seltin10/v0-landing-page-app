@@ -320,25 +320,25 @@ export function FeedbackForm({ userId, hasSubmitted = false }: FeedbackFormProps
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="0-10" id="price-1" />
                   <Label htmlFor="price-1" className="font-normal cursor-pointer">
-                    R$ 0-10
+                    R$ 10-20
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="10-20" id="price-2" />
                   <Label htmlFor="price-2" className="font-normal cursor-pointer">
-                    R$ 10-20
+                    R$ 20-30
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="20-30" id="price-3" />
                   <Label htmlFor="price-3" className="font-normal cursor-pointer">
-                    R$ 20-30
+                    R$ 30-40
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="30+" id="price-4" />
                   <Label htmlFor="price-4" className="font-normal cursor-pointer">
-                    Acima de R$ 30
+                    Acima de R$ 40
                   </Label>
                 </div>
               </RadioGroup>
